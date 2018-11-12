@@ -1,7 +1,12 @@
 package com.cherry.jeeves.exception;
 
 public class WechatQRExpiredException extends RuntimeException {
-    public WechatQRExpiredException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public WechatQRExpiredException() {
     }
 
     public WechatQRExpiredException(String message) {

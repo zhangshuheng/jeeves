@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
@@ -48,7 +47,7 @@ public class MessageHandlerImpl implements MessageHandler {
         logger.info("to: " + message.getToUserName());
         logger.info("content:" + message.getContent());
 //        将原文回复给对方
-        replyMessage(message);
+       // replyMessage(message);
     }
 
     @Override

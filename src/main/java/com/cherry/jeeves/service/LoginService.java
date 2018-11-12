@@ -21,6 +21,10 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.stream.Collectors;
 
 @Component
@@ -55,6 +59,9 @@ public class LoginService {
             byte[] qrData = wechatHttpServiceInternal.getQR(uuid);
             ByteArrayInputStream stream = new ByteArrayInputStream(qrData);
             String qrUrl = QRCodeUtils.decode(stream);
+            Path path = Paths.get("/tmp/qr.jpg");
+			Files.deleteIfExists(path);
+			Files.write(path,qrData,StandardOpenOption.CREATE);
             stream.close();
             String qr = QRCodeUtils.generateQR(qrUrl, 40, 40);
             logger.info("\r\n" + qr);
@@ -107,6 +114,7 @@ public class LoginService {
                 baseRequest.setSkey(cacheService.getsKey());
                 cacheService.setBaseRequest(baseRequest);
             } else {
+            	logger.error(token.getMessage());
                 throw new WechatException("token ret = " + token.getRet());
             }
             logger.info("[5] redirect login completed");
